@@ -1,14 +1,13 @@
 <?php
 
-class Database {
-    public function __construct(private string $host, private string $name, private string $user, private string $password )
-    {
-        
-    }
+class Database
+{
+    public function __construct(private string $host, private string $name, private string $user, private string $password) {}
 
-    public function getConnection(): PDO{
+    public function getConnection(): PDO
+    {
         //$dsn = 'mysql:host={$this->host};dbname={$this->name};charset=utf8';
-        $dsn = 'mysql:host='.$this->host.';port=3306;dbname='.$this->name;
+        $dsn = 'mysql:host=' . $this->host . ';port=3306;dbname=' . $this->name;
         return new PDO($dsn, $this->user, $this->password);
     }
 }

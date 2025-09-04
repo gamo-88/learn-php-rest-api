@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+require __DIR__ . '/vendor/autoload.php'; // Charger les dépendances Composer
+
+use Dotenv\Dotenv;
+
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 spl_autoload_register(function ($class) {
     require __DIR__ . "/src/$class.php";
 });
@@ -25,9 +31,13 @@ if ($parts[1] != "products") {
 //products
 $id = $parts[2] ?? NULL;
 
-$database = new Database("localhost", "PDO_LEARN", "gamo", "gamo1234");
-$database->getConnection();
-
-$controller = new ProductController();
+$database = new Database(
+    $_ENV['DB_HOST'],
+    $_ENV['DB_NAME'],
+    $_ENV['DB_USER'],
+    $_ENV['DB_PASS']
+);
+$gateway = new ProductGateway($database);
+$controller = new ProductController($gateway);
 
 $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
