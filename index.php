@@ -5,6 +5,9 @@ declare(strict_types=1);
 spl_autoload_register(function ($class) {
     require __DIR__ . "/src/$class.php";
 });
+
+set_exception_handler("ErrorHandler::handleException");
+
 header("Content-type: application/json; charset: UTF-8");
 
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
@@ -22,6 +25,9 @@ if ($parts[1] != "products") {
 //products
 $id = $parts[2] ?? NULL;
 
-$controller = new ProductController;
+$database = new Database("localhost", "PDO_LEARN", "gamo", "gamo1234");
+$database->getConnection();
+
+$controller = new ProductController();
 
 $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
