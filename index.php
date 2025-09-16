@@ -12,6 +12,7 @@ spl_autoload_register(function ($class) {
     require __DIR__ . "/src/$class.php";
 });
 
+set_error_handler("ErrorHandler::handleError");
 set_exception_handler("ErrorHandler::handleException");
 
 header("Content-type: application/json; charset: UTF-8");
@@ -37,7 +38,9 @@ $database = new Database(
     $_ENV['DB_USER'],
     $_ENV['DB_PASS']
 );
+
 $gateway = new ProductGateway($database);
+
 $controller = new ProductController($gateway);
 
 $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
