@@ -57,4 +57,8 @@ class ProductGateway
 
         return $stmt->rowCount();
     }
+    
+    public function delete(int $id){
+        return $id;
+    }
 }
