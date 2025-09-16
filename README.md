@@ -6,7 +6,7 @@ Un petit projet pour apprendre à créer une API REST en PHP natif, en utilisant
 
 - [X] Connexion PDO à MySQL
 - [X] Routes REST simples(sur /products)
-- [] CRUD complet
+- [X] CRUD complet
 - [ ] Upload de fichier(image)
 - [ ] Tests unitaires
 
