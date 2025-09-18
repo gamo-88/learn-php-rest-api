@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/vendor/autoload.php'; // Charger les dépendances Composer
+require __DIR__ . '/vendor/autoload.php'; 
 
 use Dotenv\Dotenv;
 
@@ -40,7 +40,8 @@ $database = new Database(
 );
 
 $gateway = new ProductGateway($database);
+$imageServices = new ImageServices();
 
-$controller = new ProductController($gateway);
+$controller = new ProductController($gateway, $imageServices);
 
 $controller->processRequest($_SERVER["REQUEST_METHOD"], $id);
